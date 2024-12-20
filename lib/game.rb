@@ -1,16 +1,16 @@
-require_relative 'board.rb'
+# # require_relative 'board.rb'
 
 
-class Game
-  def initialize
-    @board = Board.new
-  end
+# class Game
+#   def initialize
+#     @board = Board.new
+#   end
 
-  def display_board
-    puts @board
-    puts "woo"
+#   def display_board
+#     puts @board
+#     puts "woo"
 
-  end
+#   end
 # insert pieces into spaces
 # 
 #play game

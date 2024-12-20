@@ -1,7 +1,7 @@
-require_relative "squares"
+
 
 class Board
-
+  attr_reader :grid
   def initialize 
     @grid = [
       ["X", "X", nil, "X"],
@@ -11,10 +11,26 @@ class Board
     ]
   end
 
-  def place(piece, row, column)
-    @grid[row][column] = piece
+  # set
+  def []=(location, piece)
+    row, column = location
+    grid[row][column] = piece
   end
-  # place pieces
-  # out of bounds
-  # get a piece
+
+  # get
+  def [](location)
+    row, column = location
+    grid[row][column]
+  end
+
+  #in bounds?
+  def in_bounds?(location)
+    row, column = location
+    row < grid.length &&
+    column < grid.first.length &&
+    row >= 0 &&
+    column >= 0
+  end
 end
+
+
