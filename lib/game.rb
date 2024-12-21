@@ -20,5 +20,5 @@
 #detect if move is valid (from and to)
 #detect if move is legal (from, to)
 #detect if pawn is promoted(k, b, r, q)
-end
+# end
 
