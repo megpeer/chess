@@ -21,21 +21,21 @@ require_relative "lib/rook"
 # game.display_board
 
 b = Board.new
-b[[0, 0]] = Pawn.new(:black)
-b[[0, 1]] = Pawn.new(:white)
-b[[0, 2]] = Bishop.new(:black)
-b[[0, 3]] = Bishop.new(:white)
+b[[0, 0]] = Pawn.new(:black).to_s
+b[[0, 1]] = Pawn.new(:white).to_s
+b[[0, 2]] = Bishop.new(:black).to_s
+b[[0, 3]] = Bishop.new(:white).to_s
 
-b[[1, 0]] = King.new(:black)
-b[[1, 1]] = King.new(:white)
-b[[1, 2]] = Queen.new(:black)
-b[[1, 3]] = Queen.new(:white)
+b[[1, 0]] = King.new(:black).to_s
+b[[1, 1]] = King.new(:white).to_s
+b[[1, 2]] = Queen.new(:black).to_s
+b[[1, 3]] = Queen.new(:white).to_s
 
-b[[2, 0]] = Knight.new(:black)
-b[[2, 1]] = Knight.new(:white)
-b[[2, 2]] = Rook.new(:black)
-b[[2, 3]] = Rook.new(:white)
-puts b.grid
+b[[2, 0]] = Knight.new(:black).to_s
+b[[2, 1]] = Knight.new(:white).to_s
+b[[2, 2]] = Rook.new(:black).to_s
+b[[2, 3]] = Rook.new(:white).to_s
+
 
 pawnblack = Pawn.new(:black)
 puts pawnblack
@@ -66,3 +66,6 @@ rookblack = Rook.new(:black)
 puts rookblack
 rookwhite = Rook.new(:white)
 puts rookwhite
+
+
+b.display_board
