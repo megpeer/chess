@@ -8,7 +8,5 @@ require_relative "lib/pieces/pawn"
 require_relative "lib/pieces/queen"
 require_relative "lib/pieces/rook"
 
-b = Board.new
-b.assign_pieces
-b.display_board
-
+game = Game.new
+game.play_game

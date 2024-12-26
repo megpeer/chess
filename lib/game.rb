@@ -1,10 +1,12 @@
 require_relative 'board.rb'
 
 class Game
-  attr_reader :turn_count
+  attr_reader :turn_count, :origin, :destination
   def initialize
     @board = Board.new
-    @turn_count = 0
+    @origin = []
+    @destination = []
+    @player = "p1"
   end
 
 #Game engine
@@ -19,6 +21,11 @@ end
 #Turn Engine
 def player_turn
   player_move
+  origin_in_bounds?
+  destination_in_bounds?
+  occupied?
+  piece_reader
+  place_move
   next_round
   display_board
 end
@@ -28,25 +35,46 @@ def welcome_message
 end
 
 def player_move
-  (turn_count / 2) == 1 ? player = "p1" : player = "p2"
-  puts "#{player} please enter FROM coord"
-  from = gets.chomp
-  puts "#{player} please enter TO coord"
-  to = gets.chomp
-  validate_move(from, to)
-  place_move(from, to)
+  puts "#{player} please enter origin coord"
+  @origin = gets.chomp
+  puts "#{player} please enter destination coord"
+  @destination = gets.chomp
 end
 
-def validate_move(from, to)
-  #from == out of bounds? space not occupied by player colour piece? invalid move. please enter agian.
-  #
-  #to == out of bounds? space occupied by player colour piece? invalid move. please enter agian.
-  #
-  #type of piece, check move dirs.
+def origin_in_bounds?
+  location = [origin]
+  return if board.in_bounds?(location)
+  puts "invalid origin, please select again"
+  player_move
 end
+
+def destination_in_bounds?
+  location = [destination]
+  return if board.in_bounds?(location)
+  puts "invalid destination, please select again"
+  player_move
+end
+
+def occupied?
+  return if board[origin] != "᛫"
+  puts "origin coordinates are empty, please select an occupied space"
+  # if origin coordinates are not occupied, origin coordinates are invalid.
+end
+
+#######################################
+####WORKING - problem validating player because dont knmwo how to access class info outsode of class
+def piece_reader
+  player == "p1" ? "black" : "white"
+  # determine what is color.
+  # if it is not the player's color, it is an invalid move.
+end
+#################
+
 
 def place_move
-  # from = to
+  # if it is the player's color, destination coordinate is validated via the piece class move_dir method.
+  # if it is not a valid move according to move_dir, it is an invalid move.
+  # if all above checks, the piece is moved to the destination. 
 end
 
 def next_round
