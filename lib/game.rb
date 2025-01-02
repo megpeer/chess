@@ -61,8 +61,8 @@ def occupied?
   # if origin coordinates are not occupied, origin coordinates are invalid.
 end
 
-#######################################
-####WORKING - problem validating player because dont knmwo how to access class info outsode of class
+#################### - WORKING - #######################################################
+#problem validating player because dont knmwo how to access class info outside of class#
 def piece_reader
   player == "p1" ? "black" : "white"
   # determine what is color.

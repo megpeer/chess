@@ -1,17 +1,12 @@
 
-require_relative "pieces/bishop"
-require_relative "pieces/king"
-require_relative "pieces/knight"
-require_relative "pieces/pawn"
-require_relative "pieces/queen"
-require_relative "pieces/rook"
+require_relative "pieces/pieces"
 
 
 class Board
   attr_reader :grid
   def initialize 
     @grid = Array.new(8) {Array.new(8, "᛫")}
-    assign_pieces
+    # assign_pieces
   end
 
 
@@ -66,6 +61,12 @@ class Board
       row >= 0 &&
       column >= 0
     end
+
+    def empty?(location)
+      row, column = location
+      grid[row][column] == "᛫"
+    end
+  
     
 
   def display_board

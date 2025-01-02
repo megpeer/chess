@@ -1,19 +1,14 @@
-class Pawn
-
-  attr_reader :color
-
-  def initialize(color)
-    @color = color
-  end
+class Pawn < Piece
+  include Stepable
 
   def to_s
     color == :black ? "♙" : "♟"
   end
 
-  def move dirs
+  def move_dirs
     [
-      [0, 1],
-      [0, 2]
+      [0, 1]
+      # [0, 2]
     ]
   end
 end
