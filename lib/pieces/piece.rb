@@ -1,6 +1,7 @@
 class Piece
 
-  attr_reader :board, :location, :color
+  attr_reader :board, :color
+  attr_accessor :location
   def initialize(board, location, color)
     @board = board
     @location = location
@@ -8,8 +9,15 @@ class Piece
   end
 
   def enemy?(location)
-    board[location] != "᛫" && board[location].color != color
+    !board.empty?(location) && board[location].color != color
   end
 
+  def current_r
+    location.first
+  end
+
+  def current_c
+    location.last
+  end
 
 end

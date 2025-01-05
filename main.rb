@@ -1,17 +1,16 @@
 require_relative "lib/board"
 require_relative "lib/game"
 require_relative "lib/pieces/pieces"
-# require_relative "lib/pieces/bishop"
-# require_relative "lib/pieces/king"
-# require_relative "lib/pieces/knight"
-# require_relative "lib/pieces/pawn"
-# require_relative "lib/pieces/queen"
-# require_relative "lib/pieces/rook"
+require_relative "lib/board_render"
 
-# game = Game.new
-# game.play_game
+# TO DO:
+# determine if the game is "won"
+# taking turns
 
-b = Board.new
-b[[2, 2]] = King.new(b, [2, 2], :black)
-b.display_board
-p b[[2, 2]].available_moves
+b = Board.start_chess
+renderer = BoardRender.new(b)
+b[[2, 1]] = Pawn.new(b, [2, 2], :white)
+# renderer.render
+# p b[[1, 2]].available_moves
+b.move_piece([1, 0], [2, 0])
+renderer.render

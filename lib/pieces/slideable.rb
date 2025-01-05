@@ -9,12 +9,11 @@ module Slideable
         current_r += dr
         current_c += dc
         loc = [current_r, current_c]
+        # p loc
         break if !board.in_bounds?(loc)
-
         if board.empty?(loc)  
           moves << loc
         end
-
         if enemy?(loc)
           moves << loc
           break

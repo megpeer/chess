@@ -1,12 +1,15 @@
-require_relative 'board.rb'
+require_relative "board"
+require_relative "board_render"
+require_relative "pieces/pieces"
 
 class Game
   attr_reader :turn_count, :origin, :destination
   def initialize
-    @board = Board.new
+    @board = Board.start_chess
+    @renderer = BoardRender.new(board)
     @origin = []
     @destination = []
-    @player = "p1"
+    @player = "p1" 
   end
 
 #Game engine
@@ -27,7 +30,7 @@ def player_turn
   piece_reader
   place_move
   next_round
-  display_board
+  renderer.render
 end
 
 def welcome_message
