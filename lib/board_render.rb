@@ -6,7 +6,7 @@ class BoardRender
   end
 
   def render
-    system('clear') 
+    
     row = 0
     8.times do |r|
       print "#{row}" 
