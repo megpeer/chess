@@ -15,11 +15,10 @@ class Game
 def play_game
   welcome_message
   @renderer.render
-  # player_turn until game_over?
+  player_turn until game_over?
   # return unless reset?
   # reset 
   # play_game
-  player_turn until turn_count == 10
 end
 
 #Turn Engine
@@ -34,37 +33,47 @@ def welcome_message
 end
 
 def player_move
-  origin = []
-  destination = []
+  origin = 0
+  destination = 0
+  
+  puts "#{player}'s move"
+  loop do
+    puts "pls enter origin: row, column"
+    origin = gets.chomp.split(",").map(&:to_i)
+      if @board[origin].color != player
+        puts "that is not your piece!"
+      end
+      if  @board[origin].color == player 
+        break
+      end
+  end
+    piece = @board[origin]
+    moves = piece.available_moves
+    puts "the available moves for that piece are #{moves}"
+  loop do
+    puts "choose the destination: row, column "
+    destination = gets.chomp.split(",").map(&:to_i)
+      if moves.include?(destination)
+        break
+      end
+  end
 
-  puts "#{player} pls enter origin: row"
-  origin << gets.chomp.to_i
-  puts "#{player} pls enter origin: column"
-  origin << gets.chomp.to_i
-  puts "#{player} pls enter destination: row "
-  destination << gets.chomp.to_i
-  puts "#{player} pls enter destination: column "
-  destination << gets.chomp.to_i
-
-  system('clear') 
-
-
-
-  @board.move_piece(origin, destination)
-  @turn_count += 1
+    @board.move_piece(origin, destination)
+    @turn_count += 1
+    system('clear') 
 end
-
 
 def next_round
   @player == :black ? @player = :white : @player = :black
 end
 
-# def game_over?
+def game_over?
 #   puts "it aint over till its over"
 #   check?
 #   checkmate?
 #   stalemate?
-# end
+  false
+end
 
 # def reset
 #   puts "reset game? y/n"

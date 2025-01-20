@@ -4,10 +4,7 @@ require_relative "lib/pieces/pieces"
 require_relative "lib/board_render"
 
 # TO DO:
-# 1) refine player_move. constrain moves to:
-#   > player limited to only moving THEIR colour
-#   > can only input number 0 to 7
-#   
+
 # 2) add support for special moves
 #   > KING: castling
 #   > PAWN: en-passant pawn capturing
@@ -19,9 +16,11 @@ require_relative "lib/board_render"
 #   > stalemate
 #   > resign
 #   
-# 3) should be able to save game at any time (revisit serialization)
+# 3) add ability to save game at any time (re:serialization)
 # 
 # 4) crack open the old RSPEC toolkit and do some tests.
+# 
+# 5) refine error handling to not break out of the game cycle.
 
 
 # b = Board.start_chess
