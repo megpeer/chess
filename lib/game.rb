@@ -16,9 +16,9 @@ def play_game
   welcome_message
   @renderer.render
   player_turn until game_over?
-  # return unless reset?
-  # reset 
-  # play_game
+  return unless reset?
+  reset 
+  play_game
 end
 
 #Turn Engine
@@ -68,19 +68,19 @@ def next_round
 end
 
 def game_over?
-#   puts "it aint over till its over"
-#   check?
-#   checkmate?
+  puts "it aint over till its over"
+  board.check?(player)
+  board.checkmate?(player)
 #   stalemate?
-  false
 end
 
-# def reset
-#   puts "reset game? y/n"
-#   input = gets.chomp
-#   return true if input == "y"
-#   false
-# end
+
+def reset
+  puts "reset game? y/n"
+  input = gets.chomp
+  return true if input == "y"
+  false
+end
 
 end
 

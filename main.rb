@@ -7,18 +7,6 @@ require_relative "lib/board_render"
 
 
 # 1) determine if the game is "won"
-# 
-#   > check
-#         - create a list of all enemy pieces on the board (
-#         pieces = board.flatten.compact!
-#         )
-#         - create moves list for all of those pieces ( 
-#         checklist = []
-#         pieces.each do |piece| pieces.piece.available_moves << checklist
-#         )
-#         - if moves list includes the player's king position, then the player is IN CHECK.
-#         kingmoves = piece.available_moves
-#         checklist.include?(kingmoves) ? true : false
 #         
 #   > check-mate
 #       can player get out of CHECK?
@@ -55,5 +43,18 @@ require_relative "lib/board_render"
 # b.move_piece([1, 0], [2, 0])
 # renderer.render
 
-game = Game.new
-game.play_game
+# game = Game.new
+# game.play_game
+# 
+test = Board.new
+test[[0, 0]] = King.new(test, [0, 0], :black)
+test[[1, 1]] = Queen.new(test, [1, 1], :white)
+
+test[[3, 2]] = Knight.new(test, [3, 2], :white)
+# test[[7, 3]] = King.new(test, [7, 3], :white)
+testrender = BoardRender.new(test)
+testrender.render
+
+# p test[[2, 2]].available_moves
+test.check?(:black)
+ test.check_mate?(:black)

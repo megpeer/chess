@@ -11,13 +11,14 @@ module Slideable
         loc = [current_r, current_c]
         # p loc
         break if !board.in_bounds?(loc)
-        if board.empty?(loc)
-          moves << loc
-        else break
-        end
+
         if enemy?(loc)
           moves << loc
           break
+        end
+        if board.empty?(loc)
+          moves << loc
+        else break
         end
       end
     end

@@ -77,6 +77,41 @@ class Board
     piece.location = destination
   end
 
+  def check?(color)
+    puts "#{color} king at position #{king_pos(color)} is being assessed if in check"
+    pieces.select {|piece| piece.color != color}.each do |piece|
+      if piece.available_moves.include?(king_pos(color))
+        puts "yeppers. your boy's in check"
+        return true
+      end
+    end
+  end
+
+  def check_mate?(color)
+    puts "#{color} king at position #{king_pos(color)} is being assessed if check mated"
+    king_moves = self[king_pos(color)].available_moves
+    # p "available moves for king are #{king_moves}"
+    enemy_moves = []
+    mate_moves = []
+    #
+    pieces.select {|piece| piece.color != color}.each do |piece|
+      enemy_moves << piece.available_moves
+        # puts "yeppers. your boy's been mated, matey"
+        # return true
+      # end
+    end
+    mate_moves = king_moves.reject{ |k| enemy_moves.flatten(1).include? k }
+    p "kings only safe moves out of check are #{mate_moves}"
+  end
+
+  def king_pos(color)
+    pieces.find {|p| p.color == color && p.is_a?(King)}.location
+  end
+
+  def pieces
+    board.flatten.compact!
+  end
+
 end
 
 
