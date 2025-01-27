@@ -10,11 +10,6 @@ require_relative "lib/board_render"
 #         
 #   > check-mate
 #       can player get out of CHECK?
-#         player can move out of CHECK by validating:
-#         - are any of player king's moves list is not included in all enemey pieces's move
-#          list? (king can move itself out of check)
-#         - for all enemy checking pices, are their locations included in current player 
-#         pieces moves list? (can checking piece be captured?)
 #         - for all enemy checking pieces except knights, are any diagonal or orthoganal 
 #         squares in between the player's king and checking piece included in any of 
 #         player's pieces moves list? (can the check be blocked by another piece?)
@@ -48,10 +43,9 @@ require_relative "lib/board_render"
 # 
 test = Board.new
 test[[0, 0]] = King.new(test, [0, 0], :black)
-test[[1, 1]] = Queen.new(test, [1, 1], :white)
-
-test[[3, 2]] = Knight.new(test, [3, 2], :white)
-# test[[7, 3]] = King.new(test, [7, 3], :white)
+test[[1, 0]] = Rook.new(test, [1, 0], :black)
+test[[0, 3]] = Rook.new(test, [0, 3], :white)
+test[[2, 2]] = Queen.new(test, [2, 2], :white)
 testrender = BoardRender.new(test)
 testrender.render
 
