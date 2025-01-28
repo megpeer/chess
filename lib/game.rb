@@ -16,8 +16,7 @@ def play_game
   welcome_message
   @renderer.render
   player_turn until game_over?
-  return unless reset?
-  reset 
+  return unless reset?(player) 
   play_game
 end
 
@@ -68,14 +67,14 @@ def next_round
 end
 
 def game_over?
-  puts "it aint over till its over"
-  board.check?(player)
-  board.checkmate?(player)
-#   stalemate?
+  @board.check?(player)
+  @board.checkmate_king_move?(player)
+  @board.checkmate_capture?(player)
+  @board.checkmate_slide_block?(player)
 end
 
-
-def reset
+def reset?(player)
+  puts "wow. #{player} has won this game of chess."
   puts "reset game? y/n"
   input = gets.chomp
   return true if input == "y"

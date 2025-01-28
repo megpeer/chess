@@ -81,33 +81,34 @@ class Board
     puts "#{color} king at position #{king_pos(color)} is being assessed if in check"
     pieces.select {|piece| piece.color != color}.each do |piece|
       if piece.available_moves.include?(king_pos(color))
-        puts "yeppers. your boy's in check"
+        puts "yep. looks like your boy's in check"
         return true
+      else false
       end
     end
   end
 
-  def check_mate?(color)
-    # enemy_color = nil
-    # color == :black ? enemy_color = :white : enemy_color = :black
-    
-    puts "#{color} king at position #{king_pos(color)} is being assessed if check mated"
+  def checkmate_king_move?(color)
+    puts "#{color} king at position #{king_pos(color)} is being assessed if check-mated"
     king_moves = self[king_pos(color)].available_moves.flatten
     enemy_moves = []
     mate_moves = []
-    checking_pieces = []
-    # #CHECK IF ANY KING MOVES ARE POSSIBLE TO ESCAPE ENEMY MOVE LIST
-    # pieces.select {|piece| piece.color != color}.each do |piece|
-    #   enemy_moves << piece.available_moves
-    # end
-    # mate_moves = king_moves.reject{ |k| enemy_moves.flatten.include? k }
-    # if mate_moves.empty?
-    #   puts "mated?!"
-    #   return true
-    # end
-    # p "kings only safe moves out of check are #{mate_moves}"
     
-
+    #CHECK IF ANY KING MOVES ARE POSSIBLE TO ESCAPE ENEMY MOVE LIST
+    pieces.select {|piece| piece.color != color}.each do |piece|
+      enemy_moves << piece.available_moves
+    end
+    mate_moves = king_moves.reject{ |k| enemy_moves.flatten.include? k }
+    if mate_moves.empty?
+      puts "mated?!"
+      return true
+    else false
+    end
+    p "kings only safe moves out of check are #{mate_moves}"
+  end
+    
+  def checkmate_capture?(color)
+    checking_pieces = []
     #CHECK IF ANY ENEMY CHECKING PIECES CAN BE CAPTURED BY PLAYER PIECES
     pieces.select {|piece| piece.color != color}.each do |piece|
       if piece.available_moves.include?(king_pos(color))
@@ -120,9 +121,6 @@ class Board
         puts "wahey! a checking piece can be captured at #{checking_pieces.flatten}"
       end
     end
-
-    #CHECK IF SLIDING PIECES CAN BE BLOCKED BY OTHER PIECES
-    sliding_pieces(color)
   end
 
   def king_pos(color)
@@ -133,16 +131,16 @@ class Board
     board.flatten.compact!
   end
 
-  def sliding_pieces(color)
+  def checkmate_slide_block?(color)
     checking_pieces = []
     sliding_pieces = []
     sliding_locs = []
     pieces.select {|piece| piece.color != color}.each do |piece|
       if piece.available_moves.include?(king_pos(color))
         checking_pieces << piece
-        # .location
       end
     end
+    # IF CHECKING PIECES CAN SLIDE, CAN ANY PLAYER PIECE BLOCK THE PATH?
     checking_pieces.each do |piece|
       if piece.is_a?(Bishop) || piece.is_a?(Queen) || piece.is_a?(Rook)
         sliding_pieces << piece
@@ -186,20 +184,13 @@ class Board
         end
     end
     pieces.select {|piece| piece.color == color}.each do |piece|
-      p "available move: #{piece.available_moves}"
-      p "heap moves are #{heap}"
       if (piece.available_moves & heap).any?
         puts "y'all can block that shit anywhere along #{heap}"
         return true
-        
+      else false
       end
     end
   end
-
-  # def player_pieces(color)
-  #   pieces.find {|p| p.color == color}
-  # end
-
 end
 
 
