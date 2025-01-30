@@ -78,27 +78,28 @@ class Board
   end
 
   def check?(color)
-    puts "#{color} king at position #{king_pos(color)} is being assessed if in check"
     pieces.select {|piece| piece.color != color}.each do |piece|
       if piece.available_moves.include?(king_pos(color))
-        puts "yep. looks like your boy's in check"
+          puts "#{color} king at position #{king_pos(color)} is in check"
         return true
       else false
       end
     end
   end
-
+ 
   def checkmate_king_move?(color)
+      #CHECK IF ANY KING MOVES ARE POSSIBLE TO ESCAPE ENEMY MOVE LIST
     puts "#{color} king at position #{king_pos(color)} is being assessed if check-mated"
     king_moves = self[king_pos(color)].available_moves.flatten
+    p king_moves
     enemy_moves = []
-    mate_moves = []
-    
-    #CHECK IF ANY KING MOVES ARE POSSIBLE TO ESCAPE ENEMY MOVE LIST
+    mate_moves = []  
     pieces.select {|piece| piece.color != color}.each do |piece|
       enemy_moves << piece.available_moves
     end
+    p enemy_moves
     mate_moves = king_moves.reject{ |k| enemy_moves.flatten.include? k }
+    p mate_moves
     if mate_moves.empty?
       puts "mated?!"
       return true

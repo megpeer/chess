@@ -16,6 +16,7 @@ def play_game
   welcome_message
   @renderer.render
   player_turn until game_over?
+  next_round
   return unless reset?(player) 
   play_game
 end
@@ -23,6 +24,7 @@ end
 #Turn Engine
 def player_turn
   player_move
+  check?
   next_round
   @renderer.render
 end
@@ -61,16 +63,20 @@ def player_move
     @turn_count += 1
     system('clear') 
 end
+def check?
+  @board.check?(player)
+end
 
 def next_round
   @player == :black ? @player = :white : @player = :black
 end
 
+
 def game_over?
-  @board.check?(player)
-  @board.checkmate_king_move?(player)
-  @board.checkmate_capture?(player)
-  @board.checkmate_slide_block?(player)
+  return false unless !check?
+    @board.checkmate_king_move?(player)
+    @board.checkmate_capture?(player)
+    @board.checkmate_slide_block?(player)
 end
 
 def reset?(player)
