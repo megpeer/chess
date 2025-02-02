@@ -5,9 +5,6 @@ require_relative "lib/board_render"
 
 # TO DO:
 
-
-# 1) re-tool the checkmating checks, it is returning true at first check when it shouldnt be.
-#          
 # 2) include ability to resign with each user prompt. can start with "R to resign?"
 #   if gets.chomp is R, then reset game or quit game.
 #   
@@ -24,12 +21,13 @@ require_relative "lib/board_render"
 
 game = Game.new
 game.play_game
-# 
+
 # test = Board.new
 # test[[0, 0]] = King.new(test, [0, 0], :black)
-# test[[1, 0]] = Rook.new(test, [1, 0], :black)
-# test[[0, 3]] = Rook.new(test, [0, 3], :white)
-# test[[2, 2]] = Queen.new(test, [2, 2], :white)
+# test[[1, 0]] = Pawn.new(test, [1, 0], :black)
+# test[[0, 1]] = Rook.new(test, [0, 1], :black)
+# test[[1, 1]] = Bishop.new(test, [1, 1], :black)
+# test[[1, 2]] = Knight.new(test, [1, 2], :white)
 # testrender = BoardRender.new(test)
 # testrender.render
 
