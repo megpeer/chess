@@ -1,19 +1,23 @@
 require_relative "board"
 require_relative "board_render"
 require_relative "pieces/pieces"
+require_relative "serialization"
+require "yaml"
 
 class Game
-  attr_accessor :turn_count, :player, :turn_count
+include Serialization
+
+  attr_accessor :board, :player
   def initialize
     @board = Board.start_chess
     @renderer = BoardRender.new(@board)
     @player = :black
-    @turn_count = 0
   end
 
 #Game engine
 def play_game
   @renderer.render
+  welcome
   player_turn until game_over?
   next_round
   return unless reset?(player) 
@@ -28,6 +32,21 @@ def player_turn
   next_round
   @renderer.render
 end
+
+def welcome
+    puts "welcome to my chess game"
+    puts "type 'y' to load saved game?"
+    start = ""
+    start = gets.upcase.chomp
+  if start == "Y"
+    load_game
+  else 
+  return
+  end
+end
+
+
+
 
 def player_move
   origin = 0
@@ -86,7 +105,6 @@ def player_move
     end
 
     @board.move_piece(origin, destination)
-    @turn_count += 1
     system('clear') 
 end
 
@@ -97,6 +115,7 @@ end
 
 def save 
   puts "saving game ..."
+  save_game
   exit!
 end
 
@@ -124,4 +143,5 @@ def reset?(player)
   return true if input == "y"
   false
 end
+
 end
