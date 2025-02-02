@@ -39,7 +39,7 @@ def player_move
   loop do
     puts "choose origin piece: row, column"
     puts "enter q to quit, s to save."
-  input = gets.chomp
+  input = gets.chomp.downcase
     if input == "q"
       quit
     end
@@ -47,7 +47,7 @@ def player_move
       save
     end
     origin = input.split(",").map(&:to_i)
-    if !origin.any?{|d| !(0..7).include?(d)} || !origin.length > 1
+    if !origin.any?(1..7) || origin.length <= 1
       puts "type a valid move."
       player_move
     end
@@ -67,8 +67,14 @@ def player_move
   ##DESTINATION!
   loop do
     puts "choose the destination space: row, column "
+    puts "enter q to quit, s to save."
     input = gets.chomp.downcase
-    # input_validator(input)
+    if input == "q"
+      quit
+    end
+    if input == "s"
+      save
+    end
     destination = input.split(",").map(&:to_i)
     moves = piece.available_moves
       if !moves.include?(destination)
